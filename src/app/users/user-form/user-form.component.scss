@@ -1,0 +1,39 @@
+.form-element { 
+    padding: 0.5rem 0;
+}
+.users-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.users-form {
+    padding: 1rem 2rem 2rem 2rem;
+    border: 2px solid #dedede;
+    border-radius: 0.5rem;
+    min-width: 25%;
+}
+
+.form-element dx-text-box {
+    width:100%;
+}
+.form-element span {
+    padding-bottom: 0.5rem;
+    font-size: large;
+}
+.user-form-header {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem;
+    border-bottom: 2px solid #000;
+    margin-bottom: 0.5rem;
+}
+.back-list-add-btn-container{
+     text-align: right;
+     padding: 1rem 0;
+}
+.required {
+  color: red;
+  margin-left: 4px;
+  font-weight: bold;
+}

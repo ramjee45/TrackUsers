@@ -1,0 +1,26 @@
+.user-list-add-btn-container {
+     padding: 0;
+}
+
+.user-list-container {
+     margin-bottom: -3rem;
+}
+
+.edit-btn-container {
+     margin-right: 1rem;
+}
+
+::ng-deep {
+     .dx-datagrid .dx-header-row {
+          background: #337ab7;
+          color: #FFF;
+          font-size: 1rem;
+          font-weight: 600;
+     }
+     .custom-action.dx-button .dx-button-content {
+          padding-block: 4px;
+     }
+     .custom-action.dx-button {
+          width: 5rem;
+     }
+}

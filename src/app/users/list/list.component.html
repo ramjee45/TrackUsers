@@ -1,0 +1,20 @@
+<div class="user-list-add-btn-container">
+    <dx-button text="Create a User" type="default" (click)="createUser()">
+    </dx-button>
+</div>
+<dx-data-grid [dataSource]="users" [columnAutoWidth]="true" [showBorders]="true" [showColumnLines]="true"
+    [showRowLines]="true">
+    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true" [width]="240" placeholder="Search...">
+    </dxo-search-panel>
+    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 15]" [showInfo]="true"
+        [showNavigationButtons]="true">
+    </dxo-pager>
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxi-column *ngFor="let col of columns" [dataField]="col.dataField" [caption]="col.caption"
+        [calculateCellValue]="col.calculateCellValue" [cellTemplate]="col.cellTemplate">
+    </dxi-column>
+    <div *dxTemplate="let data of 'actionCellTemplate'">
+        <dx-button (click)="editUser(data.data)" class="edit-btn-container custom-action" type="normal">Edit</dx-button>
+        <dx-button (click)="deleteUser(data.data)" class="custom-action" type="default">Delete</dx-button>
+    </div>
+</dx-data-grid>

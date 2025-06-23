@@ -1,0 +1,44 @@
+<div class="flex-row">
+    <div class="back-list-add-btn-container flex-one">
+        <dx-button text="Back To User List" type="default" (click)="backToUserList()">
+        </dx-button>
+    </div>
+</div>
+<div class="users-form-container">
+    <form [formGroup]="usersForm" class="users-form">
+        <div class="user-form-header">
+            {{formTitle}} User
+        </div>
+        <div class="flex-row form-element flex-direction-column">
+            <div>
+                <span>First Name</span><span class="required">*</span>
+            </div>
+            <dx-text-box formControlName="firstName" name="firstName" placeholder="Enter First Name">
+            </dx-text-box>
+        </div>
+        <div class="flex-row form-element flex-direction-column">
+            <div>
+                <span>Last Name</span><span class="required">*</span>
+            </div>
+            <dx-text-box formControlName="lastName" name="lastName" placeholder="Enter Last Name">
+            </dx-text-box>
+        </div>
+        <div class="flex-row form-element flex-direction-column">
+            <div>
+                <span>Email</span><span class="required">*</span>
+            </div>
+            <dx-text-box formControlName="email" name="email" placeholder="Enter Email">
+            </dx-text-box>
+        </div>
+        <div class="flex-row form-element flex-direction-column">
+            <div>
+                <span>Country</span><span class="required">*</span>
+            </div>
+            <dx-select-box [searchEnabled]="true" [items]="countries" name="countries" formControlName="country" placeholder="Select Country">
+            </dx-select-box>
+        </div>
+        <div class="flex-row form-element flex-direction-column">
+            <dx-button type="default" [disabled]="usersForm.invalid" (click)="saveUserData()">{{formTitle}}</dx-button>
+        </div>
+    </form>
+</div>
