@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, Signal } from '@angular/core';
 import { User } from '../../models/users-model';
 import { UserService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { confirm } from 'devextreme/ui/dialog';
-import notify from 'devextreme/ui/notify';
 import { Column } from 'devextreme/ui/data_grid';
 @Component({
   selector: 'app-list',
@@ -13,8 +12,6 @@ import { Column } from 'devextreme/ui/data_grid';
   providers: []
 })
 export class ListComponent implements OnInit {
-  users: User[] = [];
-  userId: string | null = '';
   columns: Column[] = [
     {
       caption: 'Full Name',
@@ -40,32 +37,23 @@ export class ListComponent implements OnInit {
     }
   ];
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router) { }
   ngOnInit(): void {
-    this.getAllUsersData();
-  }
-  getAllUsersData() {
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-    })
+    this.userService.getUsers();
   }
   createUser() {
     this.router.navigateByUrl('/user/create');
   }
   editUser(data: User) {
-    this.router.navigateByUrl(`/user/update/${data.id}`);
+    this.userService.selectedUserId.set(data.id)
+    this.router.navigateByUrl(`/user/update`);
   }
   deleteUser(data: User) {
     confirm(`Are you sure you want to delete user ${data.firstName}?`, 'Confirm Delete')
       .then((dialogResult: boolean) => {
         if (dialogResult) {
-          this.userService.deleteUser(data.id).subscribe(() => {
-            notify({ message: 'User deleted successfully', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'success', 5000);
-            this.getAllUsersData();
-          }, () => {
-            notify({ message: 'Unable to deleted User', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'error', 5000);
-          })
+          this.userService.deleteUser(data.id);
         }
       });
   }

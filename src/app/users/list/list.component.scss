@@ -23,4 +23,7 @@
      .custom-action.dx-button {
           width: 5rem;
      }
+      .dx-datagrid .dx-datagrid-rowsview {
+          max-height: calc(100vh - 18rem);
+      }
 }

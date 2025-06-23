@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { CountryService } from '../../services/country.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../models/users-model';
 import notify from 'devextreme/ui/notify';
 
@@ -13,16 +13,17 @@ import notify from 'devextreme/ui/notify';
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
+  usersData: Signal<User[]>;
   usersForm: FormGroup = new FormGroup({});
   countries: string[] = [];
-  userId: string | null = '';
   formTitle: string = 'Create';
   constructor(
     private userService: UserService,
     private countryService: CountryService,
     private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) {
+      this.usersData = this.userService.users;
+    }
   ngOnInit() {
     this.usersForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -30,7 +31,6 @@ export class UserFormComponent {
       email: ['', [Validators.required, Validators.email]],
       country: ['', Validators.required]
     });
-    this.userId = this.route.snapshot.paramMap.get('id');
     this.countryService.getCountries().subscribe(
       (data) => {
         this.countries = data.map((country: any) => country.name.common);
@@ -39,9 +39,9 @@ export class UserFormComponent {
         console.error('Error fetching countries:', error);
       }
     );
-    if (this.userId) {
-      this.getSelectedUserDetails(this.userId);
+    if (this.userService.selectedUserId()) {
       this.formTitle = 'Update';
+      this.getSelectedUserDetails(this.userService.selectedUserId());
     }
   }
   backToUserList(): void {
@@ -50,19 +50,10 @@ export class UserFormComponent {
 
   saveUserData(): void {
     const payloadData: User = { ...this.usersForm.value, createdAt: new Date() };
-    if (this.userId) {
-      this.userService.updateUser(this.userId, payloadData).subscribe((res) => {
-        notify({ message: 'User Updated successfully', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'success', 5000);
-        this.backToUserList();
-      },
-      (err) => {
-        console.error('Error updating user:', err);
-      });
+    if (this.userService.selectedUserId()) {
+      this.userService.updateUser(this.userService.selectedUserId(), payloadData);
     } else {
-      this.userService.addUser(payloadData).subscribe(() => {
-        notify({ message: 'User created successfully', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'success', 5000);
-        this.backToUserList();
-      });
+      this.userService.addUser(payloadData);
     }
   }
   getSelectedUserDetails(id: string): void {

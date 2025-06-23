@@ -2,7 +2,7 @@
     <dx-button text="Create a User" type="default" (click)="createUser()">
     </dx-button>
 </div>
-<dx-data-grid [dataSource]="users" [columnAutoWidth]="true" [showBorders]="true" [showColumnLines]="true"
+<dx-data-grid [dataSource]="userService.users()" [columnAutoWidth]="true" [showBorders]="true" [showColumnLines]="true"
     [showRowLines]="true">
     <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true" [width]="240" placeholder="Search...">
     </dxo-search-panel>

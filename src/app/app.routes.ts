@@ -5,6 +5,6 @@ export const routes: Routes = [
     { path: 'user/list', component: ListComponent },
     { path: 'user/create', component: UserFormComponent},
     { path: '', redirectTo: 'user/list', pathMatch: 'full' },
-    { path: 'user/update/:id', component: UserFormComponent },
+    { path: 'user/update', component: UserFormComponent },
     { path: '**', component:UserFormComponent}
 ];

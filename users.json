@@ -1,35 +1,27 @@
 {
   "users": [
     {
-      "firstName": "Sneha ram 56",
-      "lastName": "Reddy",
-      "email": "sneha.reddy@example.com",
-      "country": "India",
-      "createdAt": "2025-06-22T20:59:15.800Z",
-      "id": "9821"
-    },
-    {
-      "firstName": "Anjali",
+      "firstName": "Anjali 45",
       "lastName": "Nair",
       "email": "anjali.nair@example.com",
       "country": "India",
-      "createdAt": "2025-06-12T14:10:00Z",
+      "createdAt": "2025-06-23T12:18:20.451Z",
       "id": "80d4"
     },
     {
-      "firstName": "Rohit",
+      "firstName": "Rohit 89",
       "lastName": "Kapoor",
       "email": "rohit.kapoor@example.com",
       "country": "India",
-      "createdAt": "2025-05-05T15:35:00Z",
+      "createdAt": "2025-06-23T12:49:43.467Z",
       "id": "2b64"
     },
     {
-      "firstName": "Tanvi",
+      "firstName": "Tanvi 64",
       "lastName": "Joshi",
       "email": "tanvi.joshi@example.com",
       "country": "India",
-      "createdAt": "2025-06-10T09:15:00Z",
+      "createdAt": "2025-06-23T12:18:27.875Z",
       "id": "1e8c"
     },
     {
