@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 export class UserService {
   private apiUrl = 'http://localhost:3000/users';
   private usersSignal = signal<User[]>([]);
+  public userAddedSignal = signal<boolean>(false);
+  public userUpdatedSignal = signal<boolean>(false);
+  userAdded = this.userAddedSignal.asReadonly();
+  userUpdated = this.userUpdatedSignal.asReadonly();
   selectedUserId = signal('');
   users = this.usersSignal.asReadonly();
 
@@ -30,7 +34,7 @@ export class UserService {
   addUser(user: User): void {
     this.http.post<User>(this.apiUrl, user).subscribe((newUser: User) => {
       notify({ message: 'User Created successfully', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'success', 5000);
-      this.backToUserList();
+      this.userAddedSignal.set(true);
       this.usersSignal.update((users: User[]) => [...users, newUser]);
     });
   }
@@ -39,7 +43,7 @@ export class UserService {
     const url = `${this.apiUrl}/${id}`;
     this.http.put<User>(url, updatedUser).subscribe((updated: User) => {
       notify({ message: 'User Updated successfully', position: { my: 'center middle', at: 'center middle', }, width: 300, }, 'success', 5000);
-      this.backToUserList();
+      this.userUpdatedSignal.set(true);
       this.usersSignal.update((users: User[]) =>
         users.map((u) => (u.id === id ? { ...u, ...updated } : u))
       );

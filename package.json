@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "api": "json-server --watch users.json --port 3000",
+    "start:all": "concurrently \"npm run api\" \"npm start\"",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -29,6 +31,7 @@
     "@angular/cli": "^19.2.15",
     "@angular/compiler-cli": "^19.2.0",
     "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.2.0",
     "devextreme-cli": "latest",
     "devextreme-themebuilder": "24.2.6",
     "jasmine-core": "~5.6.0",

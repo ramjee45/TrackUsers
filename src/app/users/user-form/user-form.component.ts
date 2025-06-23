@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, effect, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { CountryService } from '../../services/country.service';
@@ -13,7 +13,6 @@ import notify from 'devextreme/ui/notify';
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
-  usersData: Signal<User[]>;
   usersForm: FormGroup = new FormGroup({});
   countries: string[] = [];
   formTitle: string = 'Create';
@@ -22,8 +21,12 @@ export class UserFormComponent {
     private countryService: CountryService,
     private router: Router,
     private fb: FormBuilder) {
-      this.usersData = this.userService.users;
-    }
+    effect(() => {
+      if (this.userService.userAdded() || this.userService.userUpdated()) {
+        this.backToUserList();
+      }
+    });
+  }
   ngOnInit() {
     this.usersForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -44,9 +47,6 @@ export class UserFormComponent {
       this.getSelectedUserDetails(this.userService.selectedUserId());
     }
   }
-  backToUserList(): void {
-    this.router.navigateByUrl('/user/list');
-  }
 
   saveUserData(): void {
     const payloadData: User = { ...this.usersForm.value, createdAt: new Date() };
@@ -62,6 +62,14 @@ export class UserFormComponent {
     }, () => {
       notify({ message: 'Unable to get user details!', position: { my: 'center middle', at: 'center middle', }, wdth: 300, }, 'success', 5000);
     });
+  }
+
+  backToUserList(): void {
+    this.usersForm?.reset();
+    this.userService.selectedUserId.set('');
+    this.userService.userUpdatedSignal.set(false);
+    this.userService.userAddedSignal.set(false);
+    this.router.navigateByUrl('/user/list');
   }
 
   setUsersData(userData: User): void {
