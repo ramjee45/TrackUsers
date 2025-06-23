@@ -1,7 +1,12 @@
 # UserTracking
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+## Development server UI and JSON server
+To start a local development server and JSON server , run following script:
 
+```bash
+npm run start:all
+```
 ## Development server
 
 To start a local development server, run:
