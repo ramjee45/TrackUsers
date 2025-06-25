@@ -33,6 +33,7 @@
     "@types/jasmine": "~5.1.0",
     "concurrently": "^9.2.0",
     "devextreme-cli": "latest",
+    "json-server": "^0.17.4",
     "devextreme-themebuilder": "24.2.6",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
